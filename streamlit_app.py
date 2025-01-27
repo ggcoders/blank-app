@@ -6,46 +6,54 @@ st.set_page_config(layout="wide")
 
 
 if __name__ == "__main__":
-    st.title("DATAVIEW")
-    # allow the user to insert the file    
-    f = st.file_uploader(label="Let the magic happen")
+    st.title("DATAVIEW")  
+    
+    f = st.file_uploader(label="Let the magic happen") # allow the user to upload the file  
     "---"
 
     col_1, col_2 = st.columns([0.5, 0.5], border=True)
-    container = st.container(border=True)
-    # if the file exists, proceed to get the extension
+    plotting_container = st.container(border=True)
+    
+
     if f:
-        f_ext = f.name.split(".")[-1]
+        f_ext = f.name.split(".")[-1] # if the file exists, proceed to get the extension
 
-        # retrieve dataframe with the desired extension
-        try:
-            with col_1:
-                st.title("Your Base DataFrame")
-                st.divider()
-                df = eval(f"pd.read_{f_ext}(f)")
-                df, f"'{f.name}' shape is -> {df.shape}"
+        try: # retrieve dataframe with the desired extension
+            df = eval(f"pd.read_{f_ext}(f)")
 
-
-            # select multiple columns to create a new desired dataframe
-            with col_2:
-                st.title("Your New DataFrame")
-                columns = st.multiselect("", df.columns, placeholder="Select your COLUMNS in the desired order: ")
-
-                # display the desired dataframe
-                if len(columns):
-                    columns = [col for col in columns if col in columns]
-                    df[columns], f"new shape is -> {df[columns].shape}"
-            
-            with container:
-                st.title("Select data to plot")
-                st.write("X axis", st.selectbox(df.columns))
-                st.write("Y axis")
-
-        # error handling if the extension is not correct 
-        except:
+        except: # error handling if the extension is not correct formatting
             st.write(f"Incompatible extension -> {f_ext}")
             st.write("Please make sure that the file extension is included in the following list:")
             st.write("[ CSV, XLSX, TXT, JSON, HTML, LaTeX, XML, SQL ]")
-        
     
 
+        with col_1: # showcasing the main dataframe
+            st.title("Your Base DataFrame")
+            st.divider()
+            df, f"'{f.name}' shape is -> {df.shape}"
+
+        
+        with col_2: # select multiple columns to create a new desired dataframe
+            st.title("Your New DataFrame")
+            columns = st.multiselect("", df.columns, placeholder="Select your COLUMNS in the desired order: ")
+            
+            if len(columns): # display the desired dataframe
+                new_df = df[columns]
+                columns = [col for col in columns if col in columns]
+                new_df, f"new shape is -> {new_df.shape}"
+        
+
+        with plotting_container:
+            st.title("Select data to plot")
+            x_axis = st.selectbox(
+                "Select your data to be plotted on the X Axis",
+                options=df.columns,
+                index=None,
+                placeholder="X Axis value"
+            )
+            y_axis = st.selectbox(
+                "Select your data to be plotted on the Y Axis",
+                options=df.columns,
+                index=None,
+                placeholder="Y Axis value"
+            )
