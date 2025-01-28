@@ -51,9 +51,25 @@ if __name__ == "__main__":
                 index=None,
                 placeholder="X Axis value"
             )
-            y_axis = st.selectbox(
+
+            y_axis = st.multiselect(
                 "Select your data to be plotted on the Y Axis",
                 options=df.columns,
                 index=None,
                 placeholder="Y Axis value"
             )
+
+            chart_type = st.selectbox(
+                "Select the type of chart to plot",
+                options=["area_chart", "line_chart", "bar_chart", "scatter_chart"],
+                index=None,
+                placeholder="Chart type"
+            )
+            
+            st.code(f"X = {x_axis} // Y = {y_axis} // Chart type = {chart_type}")
+
+            if st.button("Plot your chart") and (x_axis and y_axis and chart_type):
+                eval(f'st.{chart_type}(data=df, x="{x_axis}", y="{y_axis}")')
+
+    else:
+        st.write("upload your file to continue")
