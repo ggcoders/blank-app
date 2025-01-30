@@ -11,11 +11,10 @@ if __name__ == "__main__":
     f = st.file_uploader(label="Let the magic happen") # allow the user to upload the file  
     "---"
 
-    col_1, col_2 = st.columns([0.5, 0.5], border=True)
-    plotting_container = st.container(border=True)
-    
-
     if f:
+        col_1, col_2 = st.columns([0.5, 0.5], border=True) # preparation
+        plotting_container = st.container(border=True)
+
         f_ext = f.name.split(".")[-1] # if the file exists, proceed to get the extension
 
         try: # retrieve dataframe with the desired extension
@@ -45,6 +44,7 @@ if __name__ == "__main__":
 
         with plotting_container:
             st.title("Select data to plot")
+            # x axis data selector
             x_axis = st.selectbox(
                 "Select your data to be plotted on the X Axis",
                 options=df.columns,
@@ -52,13 +52,14 @@ if __name__ == "__main__":
                 placeholder="X Axis value"
             )
 
+            # y axis data selector
             y_axis = st.multiselect(
                 "Select your data to be plotted on the Y Axis",
                 options=df.columns,
-                index=None,
-                placeholder="Y Axis value"
+                placeholder="Y Axis value // You can choose multiple values to be displayed"
             )
 
+            # chart type selector
             chart_type = st.selectbox(
                 "Select the type of chart to plot",
                 options=["area_chart", "line_chart", "bar_chart", "scatter_chart"],
@@ -66,10 +67,9 @@ if __name__ == "__main__":
                 placeholder="Chart type"
             )
             
-            st.code(f"X = {x_axis} // Y = {y_axis} // Chart type = {chart_type}")
+            st.code(f"X = '{x_axis}' // Y = {y_axis} // Chart type = '{chart_type}'")
 
-            if st.button("Plot your chart") and (x_axis and y_axis and chart_type):
-                eval(f'st.{chart_type}(data=df, x="{x_axis}", y="{y_axis}")')
-
-    else:
-        st.write("upload your file to continue")
+            if (x_axis and y_axis and chart_type):
+                eval(f'st.{chart_type}(data=df, x="{x_axis}", y={y_axis})')
+            else:
+                st.code("please be sure that you have selected all of the data")
