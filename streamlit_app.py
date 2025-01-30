@@ -2,7 +2,10 @@
 import streamlit as st
 import pandas as pd
 
-st.set_page_config(layout="wide")
+st.set_page_config(
+    layout="wide", 
+    page_icon="images/logo.png", 
+    page_title="Datalize")
 
 
 if __name__ == "__main__":
