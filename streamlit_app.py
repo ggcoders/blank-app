@@ -36,7 +36,12 @@ if __name__ == "__main__":
         
         with col_2: # select multiple columns to create a new desired dataframe
             st.title("Your New DataFrame")
-            columns = st.multiselect("", df.columns, placeholder="Select your COLUMNS in the desired order: ")
+            columns = st.multiselect(
+                label="new_df selector",
+                options=df.columns, 
+                placeholder="Select your COLUMNS in the desired order: ",
+                label_visibility="hidden"
+                )
             
             if len(columns): # display the desired dataframe
                 new_df = df[columns]
