@@ -10,7 +10,8 @@ if __name__ == "__main__":
     st.subheader("Visualizing data, made simple")
     
     f = st.file_uploader(label="Please input your file here to continue") # allow the user to upload the file  
-    "---"
+    
+    st.divider()
 
     if f:
         col_1, col_2 = st.columns([0.5, 0.5], border=True) # preparation
@@ -47,22 +48,22 @@ if __name__ == "__main__":
             st.title("Select data to plot")
             # x axis data selector
             x_axis = st.selectbox(
-                "Select your data to be plotted on the X Axis",
+                label="Select your data to be plotted on the X Axis",
                 options=df.columns,
                 index=None,
-                placeholder="X Axis value"
+                placeholder="X Axis value",
             )
 
             # y axis data selector
             y_axis = st.multiselect(
-                "Select your data to be plotted on the Y Axis",
+                label="Select your data to be plotted on the Y Axis",
                 options=df.columns,
                 placeholder="Y Axis value // You can choose multiple values to be displayed"
             )
 
             # chart type selector
             chart_type = st.selectbox(
-                "Select the type of chart to plot",
+                label="Select the type of chart to plot",
                 options=["area_chart", "line_chart", "bar_chart", "scatter_chart"],
                 index=None,
                 placeholder="Chart type"
@@ -73,4 +74,4 @@ if __name__ == "__main__":
             if (x_axis and y_axis and chart_type):
                 eval(f'st.{chart_type}(data=df, x="{x_axis}", y={y_axis})')
             else:
-                st.code("please be sure that you have selected all of the data")
+                st.code("please be sure that you have selected all of the data needed to process your chart")
