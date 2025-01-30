@@ -7,7 +7,7 @@ st.set_page_config(layout="wide")
 
 if __name__ == "__main__":
     st.title("DATALIZE")
-    st.subheader("Visualizing data made simple")
+    st.subheader("Visualizing data, made simple")
     
     f = st.file_uploader(label="Please input your file here to continue") # allow the user to upload the file  
     "---"
