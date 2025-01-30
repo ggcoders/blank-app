@@ -2,42 +2,64 @@
 import streamlit as st
 import pandas as pd
 
+# basic page configuration
 st.set_page_config(
     layout="wide", 
     page_icon="images/logo.png", 
-    page_title="Datalize")
+    page_title="Datalize"
+    )
+
+def get_df(file) -> pd.DataFrame | None:
+    '''
+    get_df(file) is going to return a dataframe if possible. \n
+    The file extension will be retrieved by itself and if it's included in the pandas library it will be opened. \n
+    All of this will be possible thanks to the extension retrieving and the eval() function.
+    '''
+    # if the file exists, proceed to get the extension
+    f_ext = file.name.split(".")[-1]
+
+    # retrieve dataframe with the desired extension
+    try:
+        data = eval(f"pd.read_{f_ext}(f)")
+
+    # error handling if the extension is not correct formatting
+    except: 
+        st.write(f"Incompatible extension -> {f_ext}")
+        st.write("Please make sure that the file extension is included in the following list:")
+        st.code("[ CSV, XLSX, TXT, JSON, HTML, LaTeX, XML, SQL ]")
+        st.write("If the extension is in the list, please make sure that the file is formatted correctly")
+        
+        return None
+    
+    return data
 
 
 if __name__ == "__main__":
     st.title("DATALIZE")
     st.subheader("Visualizing data, made simple")
     
-    f = st.file_uploader(label="Please input your file here to continue") # allow the user to upload the file  
-    
+    # allow the user to upload the file
+    f = st.file_uploader(label="Please input your file here to continue")
     st.divider()
 
+    df = None
+
     if f:
-        col_1, col_2 = st.columns([0.5, 0.5], border=True) # preparation
+        df = get_df(f, )
+
+    if df is not None:
+        # segments creations for later
+        col_1, col_2 = st.columns([0.5, 0.5], border=True) 
         plotting_container = st.container(border=True)
 
-        f_ext = f.name.split(".")[-1] # if the file exists, proceed to get the extension
-
-        try: # retrieve dataframe with the desired extension
-            df = eval(f"pd.read_{f_ext}(f)")
-
-        except: # error handling if the extension is not correct formatting
-            st.write(f"Incompatible extension -> {f_ext}")
-            st.write("Please make sure that the file extension is included in the following list:")
-            st.write("[ CSV, XLSX, TXT, JSON, HTML, LaTeX, XML, SQL ]")
-    
-
-        with col_1: # showcasing the main dataframe
+        # showcasing the main dataframe
+        with col_1:
             st.title("Your Base DataFrame")
             st.divider()
-            df, f"'{f.name}' shape is -> {df.shape}"
+            df, f"'{f.name}', shape is -> {df.shape}"
 
-        
-        with col_2: # select multiple columns to create a new desired dataframe
+        # select multiple columns to create a new desired dataframe
+        with col_2: 
             st.title("Your New DataFrame")
             columns = st.multiselect(
                 label="new_df selector",
@@ -46,7 +68,8 @@ if __name__ == "__main__":
                 label_visibility="hidden"
                 )
             
-            if len(columns): # display the desired dataframe
+            # display the desired dataframe
+            if len(columns): 
                 new_df = df[columns]
                 columns = [col for col in columns if col in columns]
                 new_df, f"new shape is -> {new_df.shape}"
