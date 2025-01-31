@@ -3,6 +3,7 @@ primaryColor="#1f78b4"
 backgroundColor="#e6e9f0"
 secondaryBackgroundColor="#eef1f5"
 textColor="#000000"
+font = "sans serif"
 
 [theme.dark]
 primaryColor = "#2ca02c"  # Green primary color
