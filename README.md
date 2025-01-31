@@ -1,10 +1,15 @@
-# DATALIZE
+# [DATALIZE](https://datalize.streamlit.app/)
 
-**Visualizing data, :rainbow[but simple].**
-
-<img width="1512" alt="Screenshot 2025-01-31 at 17 45 07" src="https://github.com/user-attachments/assets/5db6b01b-5e7c-4101-ae83-33da7906ded5" />
+**Visualizing data, but simple.**
 
 DATALIZE is a Streamlit-based web application designed to make data visualization quick, intuitive, and accessible. Upload your dataset, explore its contents, and create beautiful visualizations with just a few clicks.
+
+---
+
+<img width="500" alt="Screenshot 2025-01-31 at 17 52 26" src="https://github.com/user-attachments/assets/6b567485-7179-4313-b27d-b3b4bc9a2c66" />
+<img width="500" alt="Screenshot 2025-01-31 at 17 45 07" src="https://github.com/user-attachments/assets/cff4b671-d063-4ac7-85f0-7e3a5b23fe5b" />
+<img width="500" alt="Screenshot 2025-01-31 at 17 47 23" src="https://github.com/user-attachments/assets/3cf19c17-68ee-4635-9d7f-f14fc2fa172a" />
+<img width="500" alt="Screenshot 2025-01-31 at 17 47 18" src="https://github.com/user-attachments/assets/674b9e0a-d552-41a8-9f2d-95b8b055509e" />
 
 ---
 
