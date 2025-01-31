@@ -1,6 +1,7 @@
 # import os
 import streamlit as st
 import pandas as pd
+import matplotlib
 
 # basic page configuration
 st.set_page_config(
@@ -35,8 +36,12 @@ def get_df(file) -> pd.DataFrame | None:
 
 
 if __name__ == "__main__":
-    st.title("DATALIZE")
-    st.subheader("Visualizing data, made simple")
+    st.markdown(
+        '''
+        # Datalize
+        #### Data Analytics, :rainbow[but simple]
+        '''
+    )
     
     # allow the user to upload the file
     f = st.file_uploader(label="Please input your file here to continue")
@@ -45,22 +50,31 @@ if __name__ == "__main__":
     df = None
 
     if f:
-        df = get_df(f, )
+        df = get_df(f)
 
     if df is not None:
         # segments creations for later
         col_1, col_2 = st.columns([0.5, 0.5], border=True) 
         plotting_container = st.container(border=True)
 
-        # showcasing the main dataframe
+        # showcasing the main dataframe in the dedicated column
         with col_1:
-            st.title("Your Base DataFrame")
-            st.divider()
-            df, f"'{f.name}', shape is -> {df.shape}"
+            st.markdown(
+                '''
+                # Your Main Dataframe
+                ---
+                '''
+            )
+            df.style.background_gradient(cmap='plasma'), 
+            f"'{f.name}' current shape is -> {df.shape}"
 
         # select multiple columns to create a new desired dataframe
         with col_2: 
-            st.title("Your New DataFrame")
+            st.markdown(
+                '''
+                # Your :rainbow[New Dataframe]
+                '''
+            )
             columns = st.multiselect(
                 label="new_df selector",
                 options=df.columns, 
@@ -72,7 +86,8 @@ if __name__ == "__main__":
             if len(columns): 
                 new_df = df[columns]
                 columns = [col for col in columns if col in columns]
-                new_df, f"new shape is -> {new_df.shape}"
+                new_df.style.background_gradient(cmap='YlOrRd'), 
+                f"new shape is -> {new_df.shape}"
         
 
         with plotting_container:
