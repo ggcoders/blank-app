@@ -1,6 +1,8 @@
 # DATALIZE
 
-**Visualizing data, made simple.**
+**Visualizing data, :rainbow[but simple].**
+
+<img width="1512" alt="Screenshot 2025-01-31 at 17 45 07" src="https://github.com/user-attachments/assets/5db6b01b-5e7c-4101-ae83-33da7906ded5" />
 
 DATALIZE is a Streamlit-based web application designed to make data visualization quick, intuitive, and accessible. Upload your dataset, explore its contents, and create beautiful visualizations with just a few clicks.
 
@@ -35,7 +37,7 @@ DATALIZE supports the following file formats:
 1. **Upload Your File**:
    - Click on the "Upload your file here to continue" button.
    - Select a file from your local machine.
-
+  
 2. **Explore Your Data**:
    - The app will display the uploaded dataset and its shape (rows and columns).
    - Use the "Select columns to create a new dataframe" feature to create a custom DataFrame.
