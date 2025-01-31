@@ -1,4 +1,3 @@
-# import os
 import streamlit as st
 import pandas as pd
 import matplotlib
@@ -44,7 +43,7 @@ if __name__ == "__main__":
     )
     
     # allow the user to upload the file
-    f = st.file_uploader(label="Please input your file here to continue")
+    f = st.file_uploader(label="Please input your file here to continue", )
     st.divider()
 
     df = None
@@ -54,7 +53,7 @@ if __name__ == "__main__":
 
     if df is not None:
         # segments creations for later
-        col_1, col_2 = st.columns([0.5, 0.5], border=True) 
+        col_1, col_2 = st.columns([0.5, 0.5], border=True)
         plotting_container = st.container(border=True)
 
         # showcasing the main dataframe in the dedicated column
@@ -83,15 +82,19 @@ if __name__ == "__main__":
                 )
             
             # display the desired dataframe
-            if len(columns): 
+            if len(columns) > 2: 
                 new_df = df[columns]
                 columns = [col for col in columns if col in columns]
-                new_df.style.background_gradient(cmap='YlOrRd'), 
+                new_df.style.background_gradient(cmap='plasma'), 
                 f"new shape is -> {new_df.shape}"
         
 
         with plotting_container:
-            st.title("Select data to plot")
+            st.markdown(
+                '''
+                # Select the data you want to plot
+                '''
+            )
             # x axis data selector
             x_axis = st.selectbox(
                 label="Select your data to be plotted on the X Axis",
@@ -115,9 +118,18 @@ if __name__ == "__main__":
                 placeholder="Chart type"
             )
             
-            st.code(f"X = '{x_axis}' // Y = {y_axis} // Chart type = '{chart_type}'")
+            row_selector = st.slider(
+                label="Select your range // Leave blank if not specific",
+                min_value=0,
+                max_value=len(df.index - 1),
+                value=(0, len(df.index - 1))
+            )
 
-            if (x_axis and y_axis and chart_type):
-                eval(f'st.{chart_type}(data=df, x="{x_axis}", y={y_axis})')
+            st.code(f"X = '{x_axis}' // Y = {y_axis} // Chart type = '{chart_type}' // Rows selected = '{row_selector}'")
+
+            if (x_axis and y_axis and chart_type and row_selector):
+                prompt = f'st.{chart_type}(data=df[{row_selector[0]}:{row_selector[1]}], x="{x_axis}", y={y_axis})'
+                eval(prompt)
+                st.code(prompt)
             else:
                 st.code("please be sure that you have selected all of the data needed to process your chart")
