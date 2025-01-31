@@ -64,8 +64,9 @@ if __name__ == "__main__":
                 ---
                 '''
             )
+            text_df1 = f"Shape = {df.shape}, Total Cells = {df.shape[0] * df.shape[1]}"
             df.style.background_gradient(cmap='plasma'), 
-            f"'{f.name}' current shape is -> {df.shape}"
+            st.code(text_df1)
 
         # select multiple columns to create a new desired dataframe
         with col_2: 
@@ -82,11 +83,13 @@ if __name__ == "__main__":
                 )
             
             # display the desired dataframe
-            if len(columns) > 2: 
+            if len(columns): 
                 new_df = df[columns]
                 columns = [col for col in columns if col in columns]
+
+                text_df2 = f"Shape = {new_df.shape}, Total Cells = {new_df.shape[0] * new_df.shape[1]}"
                 new_df.style.background_gradient(cmap='plasma'), 
-                f"new shape is -> {new_df.shape}"
+                st.code(text_df2)
         
 
         with plotting_container:
@@ -131,5 +134,6 @@ if __name__ == "__main__":
                 prompt = f'st.{chart_type}(data=df[{row_selector[0]}:{row_selector[1]}], x="{x_axis}", y={y_axis})'
                 eval(prompt)
                 st.code(prompt)
+
             else:
                 st.code("please be sure that you have selected all of the data needed to process your chart")
