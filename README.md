@@ -99,7 +99,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 For questions or feedback, feel free to reach out:
 
-- **Your Name**  
 - **Email**: gabrielescarcella0@gmail.com
 - **GitHub**: [ggcoders](https://github.com/ggcoders)  
 
