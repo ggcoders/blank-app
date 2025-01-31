@@ -2,12 +2,5 @@
 primaryColor="#1f78b4"
 backgroundColor="#e6e9f0"
 secondaryBackgroundColor="#eef1f5"
-textColor="#000000"
-font = "sans serif"
-
-[theme.dark]
-primaryColor = "#2ca02c"  # Green primary color
-backgroundColor = "#000000"  # Background color for dark mode
-secondaryBackgroundColor = "#333333"  # Secondary background color for dark mode
-textColor = "#ffffff"  # Text color for dark mode
+textColor="#31333F"
 font = "sans serif"
